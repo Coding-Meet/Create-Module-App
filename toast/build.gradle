@@ -38,3 +38,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
+
+task deleteJar(type : Delete){
+    delete 'libs/toastLib.jar'
+}
+
+task createJar(type : Copy){
+    from("build/intermediates/aar_main_jar/release/")
+    into("libs")
+    include("classes.jar")
+    rename("classes.jar","toastLib.jar")
+}
+createJar.dependsOn(deleteJar,build)
